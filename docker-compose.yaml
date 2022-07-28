@@ -1,0 +1,114 @@
+version: "3"
+services:
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+  redis:
+    container_name: redis
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis/conf/redis.conf:/etc/redis/redis.conf
+      - ./redis/data:/data
+    command: redis-server /etc/redis/redis.conf
+  mysql:
+    container_name: mysql
+    image: mysql/mysql-server:8.0.23
+    restart: always
+    environment:
+      TZ: Asia/Shanghai
+      # mysql root用户密码
+      MYSQL_ROOT_PASSWORD: 123456
+    command:
+# 8.0默认使用加密插件是caching_sha2_password
+# https://blog.csdn.net/sinat_41632924/article/details/113251336
+#      --default-authentication-plugin=mysql_native_password
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_general_ci
+      --explicit_defaults_for_timestamp=true
+      --lower_case_table_names=1
+      --max_allowed_packet=128M;
+    volumes:
+      # mysql的数据文件
+      - ./mysql/data:/var/lib/mysql
+      # mysql配置文件
+      - ./mysql/conf:/etc/mysql/conf.d
+    ports:
+      - "3311:3306"
+  nacos1:
+    hostname: nacos1
+    container_name: nacos1
+    image: zill057/nacos-server-apple-silicon:2.0.3
+    volumes:
+      # 需要添加mysql8的插件
+      #- ./nacos/plugins/mysql/:/home/nacos/plugins/mysql/
+      # 把日志文件映射出来
+      - ./nacos/logs:/home/nacos/logs
+      - ./nacos/plugins:/home/nacos/plugins
+      # 把配置文件映射出来
+      - ./nacos/conf/application.properties:/home/nacos/conf/application.properties
+    ports:
+      - "8848:8848"
+      - "9848:9848"
+      - "9555:9555"
+    env_file:
+        # 集群配置文件
+#      - ./nacos/env/nacos-cluster.env
+      - ./nacos/env/nacos-cluster-fj.env
+    restart: always
+    depends_on:
+      - mysql
+  nacos2:
+    hostname: nacos2
+    container_name: nacos2
+    image: zill057/nacos-server-apple-silicon:2.0.3
+    volumes:
+      # 需要添加mysql8的插件
+      #- ./nacos/plugins/mysql/:/home/nacos/plugins/mysql/
+      # 把日志文件映射出来
+      - ./nacos/logs:/home/nacos/logs
+      - ./nacos/plugins:/home/nacos/plugins
+      # 把配置文件映射出来
+      - ./nacos/conf/application.properties:/home/nacos/conf/application.properties
+    ports:
+      - "8858:8848"
+      - "9858:9848"
+      # - "9849:9849"
+    env_file:
+        # 集群配置文件
+#      - ./nacos/env/nacos-cluster.env
+      - ./nacos/env/nacos-cluster-fj.env
+    restart: always
+    depends_on:
+      - mysql
+  nacos3:
+    hostname: nacos3
+    container_name: nacos3
+    image: zill057/nacos-server-apple-silicon:2.0.3
+    volumes:
+      # 需要添加mysql8的插件
+      #- ./nacos/plugins/mysql/:/home/nacos/plugins/mysql/
+      # 把日志文件映射出来
+      - ./nacos/logs:/home/nacos/logs
+      - ./nacos/plugins:/home/nacos/plugins
+      # 把配置文件映射出来
+      - ./nacos/conf/application.properties:/home/nacos/conf/application.properties
+    ports:
+      - "8868:8848"
+      - "9868:9848"
+      # - "9849:9849"
+    env_file:
+        # 集群配置文件
+#      - ./nacos/env/nacos-cluster.env
+      - ./nacos/env/nacos-cluster-fj.env
+    restart: always
+    depends_on:
+      - mysql
