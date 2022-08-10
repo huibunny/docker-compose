@@ -6,6 +6,8 @@ services:
     volumes:
       - ~/.pgdata:/var/lib/postgresql/data
     environment:
+      TZ: "Asia/Shanghai"
+      PGTZ: "Asia/Shanghai"
       POSTGRES_USER: dev_user #在此填写postgres的用户名
       POSTGRES_DB: postgres #在此填写postgres的数据库名，默认是postgres
       POSTGRES_PASSWORD: dev123 #在此填写posgres的数据库密码

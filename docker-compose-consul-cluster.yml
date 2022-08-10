@@ -9,6 +9,8 @@ services:
     volumes:
       - ~/.consul/consul1/data:/consul/data
       - ~/.consul/consul1/config:/consul/config
+    networks:
+      - consul-network
   consul2:
     image: consul:latest
     container_name: consul2
@@ -17,6 +19,8 @@ services:
     volumes:
       - ~/.consul/consul2/data:/consul/data
       - ~/.consul/consul2/config:/consul/config
+    networks: 
+      - consul-network
   consul3:
     image: consul:latest
     container_name: consul3
@@ -25,6 +29,8 @@ services:
     volumes:
       - ~/.consul/consul3/data:/consul/data
       - ~/.consul/consul3/config:/consul/config
+    networks: 
+      - consul-network
   consul4:
     image: consul:latest
     container_name: consul4
@@ -35,3 +41,8 @@ services:
     volumes:
       - ~/.consul/consul4/data:/consul/data
       - ~/.consul/consul4/config:/consul/config
+    networks: 
+      - consul-network
+networks:
+    consul-network:
+        driver: bridge
