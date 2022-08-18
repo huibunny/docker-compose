@@ -6,4 +6,5 @@ docker-compose -p postgres -f docker-compose-postgres.yml         up -d
 #docker-compose -p mysql    -f docker-compose-mysql.yml            up -d
 docker-compose -p redis    -f docker-compose-redis.yml            up -d
 docker-compose -p rabbitmq -f docker-compose-rabbitmq.yml         up -d
-#docker-compose -p nacos    -f docker-compose-nacos-m1.yml         up -d
+docker-compose -p nacos    -f docker-compose-nacos-m1.yml         up -d
+docker-compose -p minio    -f docker-compose-minio.yml            up -d
