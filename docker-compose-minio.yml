@@ -53,7 +53,7 @@ services:
     image: nginx:1.19.2-alpine
     hostname: nginx
     volumes:
-      - ./minio/etc/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./data/minio/etc/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
       - "9000:9000"
       - "9001:9001"
@@ -66,11 +66,11 @@ services:
 ## By default this config uses default local driver,
 ## For custom volumes replace with volume driver configuration.
 volumes:
-  data1-1:
-  data1-2:
-  data2-1:
-  data2-2:
-  data3-1:
-  data3-2:
-  data4-1:
-  data4-2:
+  data1-1: ./data/minio/data1-1
+  data1-2: ./data/minio/data1-2
+  data2-1: ./data/minio/data2-1
+  data2-2: ./data/minio/data2-2
+  data3-1: ./data/minio/data3-1
+  data3-2: ./data/minio/data3-2
+  data4-1: ./data/minio/data4-1
+  data4-2: ./data/minio/data4-2

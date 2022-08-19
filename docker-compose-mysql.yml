@@ -20,9 +20,9 @@ services:
       --max_allowed_packet=128M;
     volumes:
       # mysql的数据文件
-      - ./mysql/data:/var/lib/mysql
+      - ./data/mysql/data:/var/lib/mysql
       # mysql配置文件
-      - ./mysql/conf:/etc/mysql/conf.d
+      - ./data/mysql/conf:/etc/mysql/conf.d
     ports:
       - "3311:3306"
 

@@ -1,2 +1,11 @@
 nacos/cluster-logs/
 logs/
+data/consul/consul1/data/
+data/consul/consul2/data/
+data/consul/consul3/data/
+data/consul/consul4/data/
+data/jenkins
+data/mysql/data/
+data/nacos/logs/
+data/nacos/plugins/
+data/redis/data/
