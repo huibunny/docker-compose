@@ -1,0 +1,61 @@
+# https://dev.to/jv/zookeeper-cluster-with-docker-compose-jml
+# https://github.com/bitnami/bitnami-docker-zookeeper/blob/master/docker-compose-cluster.yml
+version: '2'
+
+services:
+  zookeeper1:
+    image: docker.io/bitnami/zookeeper:3.8
+    user: root
+    ports:
+      - '21811:2181'
+    volumes:
+      - ./data/zookeeper/node1/data:/bitnami
+    environment:
+      - ZOO_SERVER_ID=1
+      - ALLOW_ANONYMOUS_LOGIN=yes
+      - ZOO_SERVERS=zookeeper1:2888:3888,zookeeper2:2888:3888,zookeeper3:2888:3888
+    networks:
+      - zoo_net
+  zookeeper2:
+    image: docker.io/bitnami/zookeeper:3.8
+    user: root
+    ports:
+      - '21812:2181'
+    volumes:
+      - ./data/zookeeper/node2/data:/bitnami
+    environment:
+      - ZOO_SERVER_ID=2
+      - ALLOW_ANONYMOUS_LOGIN=yes
+      - ZOO_SERVERS=zookeeper1:2888:3888,zookeeper2:2888:3888,zookeeper3:2888:3888
+    networks:
+      - zoo_net
+  zookeeper3:
+    image: docker.io/bitnami/zookeeper:3.8
+    user: root
+    ports:
+      - '21813:2181'
+    volumes:
+      - ./data/zookeeper/node3/data:/bitnami
+    environment:
+      - ZOO_SERVER_ID=3
+      - ALLOW_ANONYMOUS_LOGIN=yes
+      - ZOO_SERVERS=zookeeper1:2888:3888,zookeeper2:2888:3888,zookeeper3:2888:3888
+    networks:
+      - zoo_net
+  zoonavigator:
+    image: elkozmon/zoonavigator
+    ports:
+      - '9900:9000'
+    networks:
+      - zoo_net
+networks:
+  zoo_net:
+    driver: bridge
+
+#volumes:
+#  zookeeper_data:
+#    driver: local
+#  zookeeper2_data:
+#    driver: local
+#  zookeeper3_data:
+#    driver: local

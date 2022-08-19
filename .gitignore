@@ -9,3 +9,4 @@ data/mysql/data/
 data/nacos/logs/
 data/nacos/plugins/
 data/redis/data/
+data/zookeeper/data/
