@@ -29,9 +29,9 @@ services:
     hostname: nacos1
     container_name: nacos1
 # for mac
-#    image: zill057/nacos-server-apple-silicon:2.0.3
+    image: zill057/nacos-server-apple-silicon:2.0.3
 # for linux
-    image: nacos/nacos-server:v2.1.1
+#    image: nacos/nacos-server:v2.1.1
     volumes:
       # 需要添加mysql8的插件
       #- ./nacos/plugins/mysql/:/home/nacos/plugins/mysql/
@@ -46,7 +46,8 @@ services:
       - "9555:9555"
     env_file:
         # 集群配置文件
-      - ./data/nacos/env/nacos-cluster.env
+      # - ./data/nacos/env/nacos-cluster.env
+      - ./data/nacos/env/nacos-cluster-fj.env
     restart: always
     depends_on:
       - mysql
@@ -54,9 +55,9 @@ services:
     hostname: nacos2
     container_name: nacos2
 # for mac
-#    image: zill057/nacos-server-apple-silicon:2.0.3
+    image: zill057/nacos-server-apple-silicon:2.0.3
 # for linux
-    image: nacos/nacos-server:v2.1.1
+#    image: nacos/nacos-server:v2.1.1
     volumes:
       # 需要添加mysql8的插件
       #- ./nacos/plugins/mysql/:/home/nacos/plugins/mysql/
@@ -80,9 +81,9 @@ services:
     hostname: nacos3
     container_name: nacos3
 # for mac
-#    image: zill057/nacos-server-apple-silicon:2.0.3
+    image: zill057/nacos-server-apple-silicon:2.0.3
 # for linux
-    image: nacos/nacos-server:v2.1.1
+#    image: nacos/nacos-server:v2.1.1
     volumes:
       # 需要添加mysql8的插件
       #- ./nacos/plugins/mysql/:/home/nacos/plugins/mysql/
