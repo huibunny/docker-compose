@@ -1,0 +1,15 @@
+version: '2'
+services:
+  mysql57:
+    image: 'mysql/mysql-server:5.7'
+    restart: always
+    container_name: mysql57
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    volumes:
+      # mysql的数据文件
+      - ./data/mysql57/data:/var/lib/mysql
+      # mysql配置文件
+      - ./data/mysql57/conf:/etc/mysql/conf.d
+    ports:
+      - '3306:3306'

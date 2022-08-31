@@ -10,3 +10,17 @@ data/nacos/logs/
 data/nacos/plugins/
 data/redis/data/
 data/zookeeper/data/
+data/activemq/
+data/minio/data1-1/
+data/minio/data1-2/
+data/minio/data2-1/
+data/minio/data2-2/
+data/minio/data3-1/
+data/minio/data3-2/
+data/minio/data4-1/
+data/minio/data4-2/
+data/mysql57/
+data/nginx/
+data/openresty/
+data/rabbitmq/
+data/zookeeper/

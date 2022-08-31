@@ -1,0 +1,19 @@
+version: "3.6"
+services:
+  juicefs:
+    build: ./docker/juicefs
+    cap_add:
+      - SYS_ADMIN
+    devices:
+      - '/dev/fuse'
+    security_opt:
+      - apparmor:unconfined
+    container_name: juicefs
+    restart: always
+    environment:
+      TZ: "Asia/Shanghai"
+    volumes:
+      - ./data/juicefs/upload:/opt/fs/upload
+      - ./script/init.sh:/init.sh
+    command: sh -c "/init.sh"
+

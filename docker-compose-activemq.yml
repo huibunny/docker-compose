@@ -1,0 +1,19 @@
+# https://hub.docker.com/r/webcenter/activemq/
+version: '3.9'
+
+services:
+  activemq:
+    image: webcenter/activemq:latest
+    container_name: 'activemq'
+    ports:
+      - '61616:61616'
+      - '8161:8161'
+    volumes:
+      - './data/activemq/data:/data/activemq'
+      - './data/activemq/log:/var/log/activemq'
+    networks:
+      - activemq_net
+
+networks:
+  activemq_net:
+    driver: bridge 
