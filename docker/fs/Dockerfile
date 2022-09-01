@@ -1,5 +1,6 @@
 FROM ubuntu:20.04
 
+ENV TimeZone=Asia/Shanghai
 # juicefs
 
 RUN apt update && apt install -y curl fuse && \
@@ -50,7 +51,6 @@ RUN set -x && \
 # See https://github.com/openresty/docker-openresty/blob/master/README.md#tips--pitfalls
 COPY nginx.conf /usr/local/openresty/nginx/conf/nginx.conf
 #COPY nginx.vh.default.conf /etc/nginx/conf.d/default.conf
-
 CMD ["/usr/local/openresty/bin/openresty", "-g", "daemon off;"]
 
 # Use SIGQUIT instead of default SIGTERM to cleanly drain requests
