@@ -4,8 +4,13 @@ services:
     container_name: nginx
     image: nginx:latest
     ports:
-      - "80:80"
       - "8081:8081"
+      - "1111:1111"
+      - "1020:1020"
+      - "1039:1039"
+      - "1019:1019"
+      - "1000:1000"
+      - "1011:1011"
     environment:
       TZ: "Asia/Shanghai"
     volumes:
