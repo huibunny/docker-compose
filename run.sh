@@ -1,7 +1,7 @@
 #!/bin/bash
 # ![docker compose orphan containers warning](https://stackoverflow.com/questions/50947938/docker-compose-orphan-containers-warning)
 # -p specify project name.It separates each docker-compose file.
-docker-compose -p consul       -f docker-compose-consul-cluster.yml   up -d
+#docker-compose -p consul       -f docker-compose-consul-cluster.yml   up -d
 docker-compose -p postgres     -f docker-compose-postgres.yml         up -d
 # mysql8
 # docker-compose -p mysql        -f docker-compose-mysql.yml            up -d
@@ -16,3 +16,4 @@ docker-compose -p postgres     -f docker-compose-postgres.yml         up -d
 #docker-compose -p dubbo        -f docker-compose-dubbo.yml            up -d
 #docker-compose -p nginx        -f docker-compose-nginx.yml            up -d
 #docker-compose -p fs           -f docker-compose-fs.yml               up -d
+docker-compose -p flowable        -f docker-compose-flowable.yml            up -d

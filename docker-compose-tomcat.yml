@@ -1,0 +1,22 @@
+version: '3'
+services:
+  tomcat:
+    image: tomcat:8.5.47
+   # image: tomcat:8.0.53
+    container_name: tomcat
+    restart: always
+    ports:
+      - 8110:8080
+    volumes:
+      #- ./data/tomcat/conf:/usr/local/tomcat/conf
+      - ./data/tomcat/webapps:/usr/local/tomcat/webapps
+    environment:
+      TZ: Asia/Shanghai
+    extra_hosts:
+      - disconf.com:${disconf}
+      - zkserver:${zkserver}
+      - zoo1:${zoo1}
+      - zoo2:${zoo2}
+      - zoo3:${zoo3}
+      - dbserver:${dbserver}
+      - rdserver:${rdserver}

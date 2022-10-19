@@ -1,0 +1,118 @@
+version: "3.6"
+services:  
+  redis:
+    container_name: redis
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data/redis/conf/redis.conf:/etc/redis/redis.conf
+      - ./data/redis/data:/data
+    command: redis-server /etc/redis/redis.conf
+    networks:
+      - local_net
+  mysql:
+    container_name: mysql
+    image: mysql/mysql-server:8.0.23
+    restart: always
+    environment:
+      TZ: Asia/Shanghai
+      # mysql root用户密码
+      MYSQL_ROOT_PASSWORD: 123456
+    command:
+# 8.0默认使用加密插件是caching_sha2_password
+# https://blog.csdn.net/sinat_41632924/article/details/113251336
+#      --default-authentication-plugin=mysql_native_password
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_general_ci
+      --explicit_defaults_for_timestamp=true
+      --lower_case_table_names=1
+      --max_allowed_packet=128M;
+    volumes:
+      # mysql的数据文件
+      - ./data/mysql/data:/var/lib/mysql
+      # mysql配置文件
+      - ./data/mysql/conf:/etc/mysql/conf.d
+    ports:
+      - "3306:3306"
+    networks:
+      - local_net
+
+  zoo1:
+    image: zookeeper:3.4.13
+    restart: always
+    container_name: zk1
+    ports:
+      - 2181:2181
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=zk1:2888:3888 server.2=zk2:2888:3888 server.3=zk3:2888:3888
+    networks:
+      - local_net
+
+  zoo2:
+    image: zookeeper:3.4.13
+    restart: always
+    container_name: zk2
+    ports:
+      - 2182:2181
+    environment:
+      ZOO_MY_ID: 2
+      ZOO_SERVERS: server.1=zk1:2888:3888 server.2=zk2:2888:3888 server.3=zk3:2888:3888
+    networks:
+      - local_net
+
+  zoo3:
+    image: zookeeper:3.4.13
+    restart: always
+    container_name: zk3
+    ports:
+      - 2183:2181
+    environment:
+      ZOO_MY_ID: 3
+      ZOO_SERVERS: server.1=zk1:2888:3888 server.2=zk2:2888:3888 server.3=zk3:2888:3888
+    networks:
+      - local_net
+
+  dubbo-admin:
+    image: apache/dubbo-admin
+    container_name: dubbo
+    ports:
+      - 8090:8080
+    networks:
+      - local_net
+    environment:
+      - admin.registry.address=zookeeper://zoo1:2181?backup=zoo2:2181,zoo3:2181
+      - admin.config-center=zookeeper://zoo1:2181?backup=zoo2:2181,zoo3:2181
+      - admin.metadata-report.address=zookeeper://zoo1:2181?backup=zoo2:2181,zoo3:2181
+    depends_on:
+      - zoo1
+      - zoo2
+      - zoo3
+  
+  nginx:
+    container_name: nginx
+    image: nginx:latest
+    ports:
+      - "8081:8081"
+      - "1111:1111"
+      - "1020:1020"
+      - "1039:1039"
+      - "1019:1019"
+      - "1000:1000"
+      - "1011:1011"
+    environment:
+      TZ: "Asia/Shanghai"
+    volumes:
+      - ./data/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./data/nginx/conf/conf.d:/etc/nginx/conf.d
+      - ./data/nginx/html:/usr/share/nginx/html
+      - ./data/nginx/data:/data
+      - ./data/nginx/log:/var/log/nginx
+    networks:
+      - local_net
+
+networks:
+  local_net:
+    driver: bridge
