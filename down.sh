@@ -15,4 +15,4 @@ docker-compose -p postgres      -f docker-compose-postgres.yml          down
 #docker-compose -p dubbo         -f docker-compose-dubbo.yml             down
 #docker-compose -p nginx         -f docker-compose-nginx.yml             down
 #docker-compose -p fs            -f docker-compose-fs.yml                down
-docker-compose -p flowable        -f docker-compose-flowable.yml        down
+docker-compose -p flowable      -f docker-compose-flowable.yml          down

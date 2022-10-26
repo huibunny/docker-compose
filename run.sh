@@ -16,4 +16,4 @@ docker-compose -p postgres     -f docker-compose-postgres.yml         up -d
 #docker-compose -p dubbo        -f docker-compose-dubbo.yml            up -d
 #docker-compose -p nginx        -f docker-compose-nginx.yml            up -d
 #docker-compose -p fs           -f docker-compose-fs.yml               up -d
-docker-compose -p flowable        -f docker-compose-flowable.yml            up -d
+docker-compose -p flowable     -f docker-compose-flowable.yml          up -d
