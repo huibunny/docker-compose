@@ -1,6 +1,6 @@
 #!/bin/bash
 #3.进入apt-get 配置目录
-cd /ect/apt
+cd /etc/apt
 #4.执行备份命令 --避免修改失败无法使用
 cp sources.list sources.list.bak
 
