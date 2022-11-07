@@ -11,4 +11,4 @@ echo "deb http://ftp2.cn.debian.org/debian/debian-security buster/updates main">
 echo "deb http://ftp2.cn.debian.org/debian/debian buster-updates main">>sources.list
 
 apt update
-apt install -y vim telnet
+apt install -y --force-yes vim telnet
